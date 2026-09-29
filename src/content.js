@@ -27,7 +27,7 @@ export const about = {
   title: 'The short version',
   paragraphs: [
     'I finished at Rutgers in 2026 with a CS degree and a math minor. The minor was a choice I second-guessed during every analysis exam and have been glad about since. A surprising amount of backend work is linear algebra and probability with worse variable names.',
-    'Before graduating I ran a small product agency for about eight months, interned on an AI research team and inside a large company’s IT infrastructure org, and picked up the habit of turning anything I do twice into a script.',
+    'Before graduating I was the first engineer at a small product agency, interned on an AI research team and inside a large company’s IT infrastructure org, and ran my fraternity chapter’s website for three semesters. Somewhere in there I picked up the habit of turning anything I do twice into a script.',
     'What I want next is a team that owns a queue, a database, or a tool other engineers depend on. If that’s yours, I’d like to hear about it. My email is at the bottom and I actually read it.',
   ],
   facts: [
@@ -46,40 +46,55 @@ export const experience = [
     when: 'May – Aug 2025',
     where: 'Remote',
     summary:
-      'Worked on Easy Answers, a feature that turns a plain-English question into SQL against a customer’s data.',
+      'Tooling and QA around the AO Platform API and its “Easy Answers” feature, which turns a plain-English question into SQL.',
     bullets: [
-      'My main job was finding where the generated SQL went wrong. I built a comparison harness that ran generated queries against a spreadsheet of known-correct ones for the same questions and flagged the differences, then went after the prompt and template issues behind the misses.',
-      'Wrote the Python API client the team used to exercise the service from scripts, plus the Postman collections for everyone who preferred clicking.',
-      'Built small automation around the eval loop so re-running the full comparison after a change was one command instead of an afternoon.',
+      'Set up the Postman collection across dev and staging, exercised the login and token-refresh APIs, checked status codes and token lifetimes, and wrote a short setup note that got the next intern going in an afternoon instead of a couple of days.',
+      'Translated 30+ Postman calls into a small reusable Python client that handles refresh, headers, SSL verification, retries with backoff, and error logging. Added CLI smoke checks for the core routes so broken endpoints showed up before anyone hit them by hand.',
+      'Refined the SQL behind Easy Answers by working through a spreadsheet of expected queries for 100+ question/answer pairs, diffing them against what the platform actually generated, and fixing the joins and filters that were off along the way.',
     ],
-    stack: ['Python', 'SQL', 'LLM evals', 'Postman', 'REST APIs'],
+    stack: ['Python', 'SQL', 'Postman', 'REST APIs', 'LLM evals'],
   },
   {
     company: 'Ghosteams',
     title: 'Lead Engineer',
-    when: 'August 2024 – Jan 2025',
-    where: 'New Jersey',
+    when: 'Aug 2024 – Jan 2025',
+    where: 'Remote',
     summary:
-      'An AI-assisted product development agency. Small clients, fixed scopes, real invoices.',
+      'First engineer at a small product development agency. Small clients, fixed scopes, real invoices.',
     bullets: [
-      'Handled sales, scoping and operations myself, which is a polite way of saying I learned how to estimate by getting it wrong a few times first.',
-      'Built the client-facing platform in React and Next.js with a GraphQL API, deployed on Vercel.',
-      'Worked with six engineers on AgentHub, an autonomous agent platform. Most of my time there went to keeping the interfaces between people’s pieces boring and stable.',
+      'Built the client-facing platform on React, Next.js and GraphQL, hosted on Vercel. Each client got a live board of their tasks, and status changes posted straight to their Discord channel.',
+      'Wrote the scoping tool the agency ran on every new project. It took a client brief, had an LLM draft the task breakdown and rough estimates, and dropped the result onto the board for someone to fix up before anything went back to the client.',
+      'Worked with 6 engineers on AgentHub, an autonomous agent platform that kept memory across sessions and could post to social media, Discord and Telegram. Wrote the Python library that coordinated the agents and handled payments between them.',
     ],
-    stack: ['React', 'Next.js', 'GraphQL', 'Vercel', 'TypeScript'],
+    stack: ['React', 'Next.js', 'GraphQL', 'Vercel', 'TypeScript', 'Python'],
   },
   {
     company: 'Pitney Bowes',
     title: 'IT Infrastructure & Services Intern',
-    when: 'Jun 2024 – Aug 2024', // add the dates here, e.g. 'Jun – Aug 2024'
-    where: 'New Jersey',
+    when: 'Jun – Aug 2024',
+    where: 'Shelton, CT',
     summary:
-      'Enterprise infrastructure inside a company that has been shipping things since 1920.',
+      'Enterprise infrastructure inside a company that has been shipping things since 1920. Mostly vSphere, mostly finding waste.',
     bullets: [
-      'Worked in a vSphere-heavy environment where a change window is a real thing and a ticket is how work moves. It reset my sense of what “production” means at scale.',
-      'Spent a lot of the internship on the unglamorous side of reliability: documentation, runbooks, and small automation for tasks that had been done by hand for years.',
+      'Dug into the virtual machine distribution process across 200+ VMs and found roughly $4,000 worth of compute and storage being wasted on machines that were never returned or were sized well beyond what their owners used.',
+      'Wrote Python scripts against the vSphere API to flag VMs that had sat idle for a month or were barely using their allocated CPU and memory. The first pass reclaimed 40+ machines and turned a weekly manual review into an on-demand one.',
+      'Set up form automation in Jira Service Management for employees reporting technical issues. Standardizing the request templates meant tickets came in with the right details up front, which trimmed triage time by about a third.',
     ],
-    stack: ['vSphere', 'Jira', 'Windows & Linux admin', 'Scripting'],
+    stack: ['Python', 'vSphere API', 'Jira Service Management', 'Windows & Linux admin'],
+  },
+  {
+    company: 'Phi Chi Theta',
+    title: 'Director of Web Services',
+    when: 'Apr 2023 – Jun 2024',
+    where: 'New Brunswick, NJ',
+    summary:
+      'Ran the chapter’s primary website for three semesters. Not a job, but it was the first codebase other people depended on me for.',
+    bullets: [
+      'Pushed regular content updates (new members, events, recruitment pages) with prospective members in mind. Recruitment-page traffic went up about 25% during fall rush.',
+      'Built a “Gallery” page in HTML and JavaScript that doubles as the organization’s photo repository, pulling together a few hundred photos from past events that were scattered across shared drives and members’ personal phones.',
+      'Cleared out a backlog of main-page bugs and layout glitches left over from previous semesters. Mobile load time dropped about 40%.',
+    ],
+    stack: ['HTML/CSS', 'JavaScript'],
   },
 ]
 
@@ -87,45 +102,48 @@ export const projects = [
   {
     name: 'IncidentHub',
     tag: 'Real-time incident management',
-    year: '2026',
+    year: 'Summer 2026',
     blurb:
-      'A lightweight PagerDuty. On-call schedules, escalation policies, acknowledgements, and a live incident feed over WebSockets.',
+      'Basically a lightweight PagerDuty. Teams open incidents, page responders, and escalate automatically when nobody acks. Commands go over REST and state changes fan out to every open browser over Socket.IO.',
     details: [
-      'Escalations run as BullMQ jobs backed by Redis, so a timer survives a restart instead of living in a setTimeout somewhere.',
-      'Role-based access control, an append-only audit log for every state change, and observability wired in from the start rather than bolted on.',
-      'Tests, Docker, and a CI pipeline, because a project about reliability that you can’t reliably run is a bit embarrassing.',
+      'Wrote the Postgres schema by hand (12 tables, 14 indexes). Audit logging happens in database triggers rather than app code, and every edit carries a version number to catch two responders overwriting each other.',
+      'A partial index took the dashboard query from 16.5 ms to 1.5 ms on 200k rows, and GIN full-text search went from 26 ms to under 1 ms.',
+      'Escalation runs as BullMQ delayed jobs in a separate worker, with deterministic job ids so a retried job can’t page anyone twice.',
+      '50+ Vitest and Playwright tests that run against real Postgres and Redis in CI, because a project about reliability that you can’t reliably run is a bit embarrassing.',
     ],
-    stack: ['TypeScript', 'Fastify', 'PostgreSQL', 'Redis', 'Socket.IO', 'BullMQ', 'Docker'],
-    link: 'https://github.com/praneethv2003',
-    linkLabel: 'GitHub',
-  },
-  {
-    name: 'RetryHTTP',
-    tag: 'Python library, on PyPI',
-    year: '2026',
-    blurb:
-      'A zero-dependency retry layer for httpx and requests. Exponential backoff with jitter, respects Retry-After, and the same small API for both libraries.',
-    details: [
-      'Started because I kept rewriting the same twenty lines of retry logic in every internship script and getting it subtly wrong each time.',
-      'Published to PyPI with tests and type hints. Zero dependencies was a hard rule; a retry helper should not be the reason your install breaks.',
-    ],
-    stack: ['Python', 'httpx', 'requests', 'PyPI', 'pytest'],
+    stack: ['TypeScript', 'React', 'Node.js', 'Fastify', 'PostgreSQL', 'Redis', 'Socket.IO', 'BullMQ', 'Docker'],
     link: 'https://github.com/praneethv2003',
     linkLabel: 'GitHub',
   },
   {
     name: 'Datastructures.io',
     tag: 'Ranked 1v1 coding matches',
-    year: '2026',
+    year: 'Summer 2026',
     blurb:
-      'Two people, one problem, a clock. Built with a friend on Cloudflare Workers and Durable Objects.',
+      'Two people, one problem, a clock. Built with two other engineers on the Cloudflare/DigitalOcean stack.',
     details: [
-      'I owned the anti-cheat and the sandboxed judge, which runs submissions through Piston with tight limits on time, memory and output.',
-      'Matchmaking and match state live in Durable Objects, one per room, so both players always talk to the same coordinator.',
+      'Live matches went from 28 to 100+ concurrent at about $17/month, mostly through event-driven matchmaking, batched writes, and Durable Object hibernation so idle rooms cost nothing.',
+      'I owned the anti-cheat: a 2-layer server-authoritative design with replayable event logs, admin review and ban tooling, and Elo reconciliation when a match gets thrown out.',
+      'Player code in Python, JavaScript, Java and C++ runs sandboxed on a dedicated x86 Piston judge with tight limits on time, memory and output.',
     ],
-    stack: ['TypeScript', 'Cloudflare Workers', 'Durable Objects', 'Piston'],
+    stack: ['TypeScript', 'Cloudflare Workers', 'Durable Objects', 'WebSockets', 'Piston', 'Docker'],
     link: 'https://datastructures.io',
     linkLabel: 'datastructures.io',
+  },
+  {
+    name: 'RetryHTTP',
+    tag: 'Python library, on PyPI',
+    year: 'Summer 2026',
+    blurb:
+      'The retry logic from the App Orchid API client, pulled out and packaged as a small PyPI library. It subclasses httpx.Client and requests.Session, so existing code works unchanged.',
+    details: [
+      'Exponential backoff with jitter, per-status retry rules, and token refresh on 401. httpx and requests are optional extras, so the core has no required dependencies.',
+      'Started because I kept rewriting the same twenty lines of retry logic in every script and getting it subtly wrong each time.',
+      '26 pytest tests cover the sync, async and requests paths. CI runs them on Python 3.10 through 3.12 and publishes to PyPI on tagged releases.',
+    ],
+    stack: ['Python', 'httpx', 'requests', 'asyncio', 'pytest', 'GitHub Actions'],
+    link: 'https://github.com/praneethv2003',
+    linkLabel: 'GitHub',
   },
 ]
 
@@ -140,26 +158,26 @@ export const smallProjects = [
   },
   {
     name: 'This site',
-    note: 'React and Vite, no UI library, no template. The cursor and the game are plain canvas and state.',
+    note: 'React and Vite, no UI library, no template. The cursor and the games are plain canvas and state.',
   },
 ]
 
 export const toolbox = [
   {
     group: 'Languages',
-    items: ['Python', 'TypeScript', 'JavaScript', 'Java', 'SQL', 'Swift', 'Dart', 'OCaml (coursework)'],
+    items: ['Python', 'TypeScript', 'JavaScript', 'Java', 'SQL', 'HTML/CSS', 'OCaml (coursework)'],
   },
   {
     group: 'Backend & infrastructure',
     items: ['PostgreSQL', 'Redis', 'Docker', 'AWS', 'Node.js / Fastify', 'Cloudflare Workers', 'GraphQL', 'vSphere'],
   },
   {
-    group: 'AI tooling',
-    items: ['Claude SDK', 'MCP', 'RAG (Pinecone, pgvector)', 'Evals', 'Fine-tuning'],
+    group: 'AI / LLM',
+    items: ['Agents (Claude SDK, OpenAI, MCP)', 'RAG (Pinecone, pgvector)', 'Evals'],
   },
   {
     group: 'Comfortable with',
-    items: ['Git', 'Postman', 'Jira', 'CI/CD', 'LaTeX', 'Linear algebra & numerical methods'],
+    items: ['Git', 'GitHub Actions', 'Postman', 'Jira', 'LaTeX', 'Linear algebra & numerical methods'],
   },
 ]
 
